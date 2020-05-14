@@ -5,26 +5,27 @@ import (
 	"fmt"
 )
 
+// 双向列表实现LinkedList
 var (
-	nodeNotExit = errors.New("元素不存在")
+	elementNotExit = errors.New("the element not exit")
 )
 
-// 双向链表
+// 定义双向列表
 type LinkedList struct {
-	size     int   // 链表长度
+	size     int   // 列表长度
 	modCount int   // 修改次数
 	first    *Node // 头节点
 	last     *Node // 尾节点
 }
 
-// 节点
+// 定义节点
 type Node struct {
 	item interface{} // 值
 	prev *Node       // 前一个结点指针
 	next *Node       // 下一个结点指针
 }
 
-// 链表的大小
+// 列表的大小
 func (list *LinkedList) Size() int {
 	return list.size
 }
@@ -37,12 +38,12 @@ func (list *LinkedList) IsEmpty() bool {
 	return true
 }
 
-// 判断链表是否包含某值
+// 判断列表是否包含某值
 func (list *LinkedList) Contains(item interface{}) bool {
 	return list.indexOf(item) != -1
 }
 
-// 该列表中第一次出现的指定元素的索引 链表不包含该元素返回-1
+// 该列表中第一次出现的指定元素的索引 列表不包含该元素返回-1
 func (list *LinkedList) indexOf(item interface{}) int {
 	index := 0
 	if item == nil {
@@ -63,7 +64,7 @@ func (list *LinkedList) indexOf(item interface{}) int {
 	return -1
 }
 
-// 该列表中最后一次出现的指定元素的索引 链表不包含该元素返回-1
+// 该列表中最后一次出现的指定元素的索引 列表不包含该元素返回-1
 func (list *LinkedList) lastIndexOf(item interface{}) int {
 	index := 0
 	if item == nil {
@@ -85,18 +86,18 @@ func (list *LinkedList) lastIndexOf(item interface{}) int {
 	return -1
 }
 
-// 在链表添加元素 默认在尾部添加
+// 在列表添加元素 默认在尾部添加
 func (list *LinkedList) Add(item interface{}) bool {
 	list.linkLast(item)
 	return true
 }
 
-// 在链表尾部添加元素
+// 在列表尾部添加元素
 func (list *LinkedList) AddLast(item interface{}) {
 	list.linkLast(item)
 }
 
-// 在链表头部添加元素
+// 在列表头部添加元素
 func (list *LinkedList) AddFirst(item interface{}) {
 	list.linkFirst(item)
 }
@@ -111,7 +112,7 @@ func (list *LinkedList) newNode(prev *Node, item interface{}, next *Node) *Node 
 	return &n
 }
 
-// 在链表最前添加节点
+// 在列表最前添加节点
 func (list *LinkedList) linkFirst(e interface{}) {
 	f := list.first
 	newNode := list.newNode(nil, e, f)
@@ -125,7 +126,7 @@ func (list *LinkedList) linkFirst(e interface{}) {
 	list.modCount++
 }
 
-// 在链表最后添加节点
+// 在列表最后添加节点
 func (list *LinkedList) linkLast(e interface{}) {
 	l := list.last
 	newNode := list.newNode(l, e, nil)
@@ -215,7 +216,7 @@ func (list *LinkedList) Remove(item interface{}) bool {
 func (list *LinkedList) RemoveFirst() (error, interface{}) {
 	f := list.first
 	if f == nil {
-		return nodeNotExit, nil
+		return elementNotExit, nil
 	}
 	return nil, list.unlinkFirst(f)
 }
@@ -224,7 +225,7 @@ func (list *LinkedList) RemoveFirst() (error, interface{}) {
 func (list *LinkedList) RemoveLast() (error, interface{}) {
 	l := list.last
 	if l == nil {
-		return nodeNotExit, nil
+		return elementNotExit, nil
 	}
 	return nil, list.unlinkLast(l)
 }
@@ -324,7 +325,7 @@ func (list *LinkedList) GetLast() (error, interface{}) {
 	return nil, l.item
 }
 
-// 清空链表
+// 清空列表
 func (list *LinkedList) Clear() {
 	for x := list.first; x != nil; {
 		next := x.next
@@ -397,7 +398,7 @@ func (list *LinkedList) PollFirst() interface{} {
 	return list.unlinkFirst(f)
 }
 
-// 检索并删除此列表的第一个元素，如果此列表为空，则返回nil
+// 检索并删除此列表的最后一个元素，如果此列表为空，则返回nil
 func (list *LinkedList) PollLast() interface{} {
 	l := list.last
 	if l == nil {
