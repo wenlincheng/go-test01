@@ -7,7 +7,7 @@ import (
 
 // 双向列表实现LinkedList
 var (
-	elementNotExit = errors.New("the element not exit")
+	elementNotExit = errors.New("the element not exist")
 )
 
 // 定义双向列表
@@ -20,7 +20,7 @@ type LinkedList struct {
 
 // 定义节点
 type Node struct {
-	item interface{} // 值
+	item interface{} // 元素值
 	prev *Node       // 前一个结点指针
 	next *Node       // 下一个结点指针
 }
@@ -90,6 +90,21 @@ func (list *LinkedList) lastIndexOf(item interface{}) int {
 func (list *LinkedList) Add(item interface{}) bool {
 	list.linkLast(item)
 	return true
+}
+
+// 将指定的元素插入此列表中的指定位置。 将当前在该位置的元素（如果有）和任何后续元素右移（将其索引添加一个）。
+func (list *LinkedList) AddIndex(index int, item interface{}) error {
+	err := list.checkPositionIndex(index)
+	if err != nil {
+		return err
+	}
+
+	if index == list.size {
+		list.linkLast(item)
+	} else {
+		list.linkBefore(item, list.node(index))
+	}
+	return nil
 }
 
 // 在列表尾部添加元素
