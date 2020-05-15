@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestDeque(t *testing.T) {
+func TestLinkedList(t *testing.T) {
 	linkedList := LinkedList{}
 	linkedList.Add(1)
 	linkedList.Add(2)
