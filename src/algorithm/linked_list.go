@@ -25,12 +25,12 @@ type Node struct {
 	next *Node       // 下一个结点指针
 }
 
-// 列表的大小
+// 列表大小
 func (list *LinkedList) Size() int {
 	return list.size
 }
 
-// 是否为空
+// 列表是否为空
 func (list *LinkedList) IsEmpty() bool {
 	if list.size > 0 {
 		return false
@@ -38,7 +38,7 @@ func (list *LinkedList) IsEmpty() bool {
 	return true
 }
 
-// 判断列表是否包含某值
+// 判断列表是否包含该元素
 func (list *LinkedList) Contains(item interface{}) bool {
 	return list.indexOf(item) != -1
 }
@@ -86,7 +86,7 @@ func (list *LinkedList) lastIndexOf(item interface{}) int {
 	return -1
 }
 
-// 在列表添加元素 默认在尾部添加
+// 在列表添加一个元素 默认在尾部添加
 func (list *LinkedList) Add(item interface{}) bool {
 	list.linkLast(item)
 	return true
@@ -107,12 +107,12 @@ func (list *LinkedList) AddIndex(index int, item interface{}) error {
 	return nil
 }
 
-// 在列表尾部添加元素
+// 将指定的元素追加到此列表的末尾
 func (list *LinkedList) AddLast(item interface{}) {
 	list.linkLast(item)
 }
 
-// 在列表头部添加元素
+// 将指定的元素插入此列表的开头
 func (list *LinkedList) AddFirst(item interface{}) {
 	list.linkFirst(item)
 }
@@ -197,7 +197,7 @@ func (list *LinkedList) isPositionIndex(index int) bool {
 	return index >= 0 && index <= list.size
 }
 
-// 删除指定索引的节点
+// 删除此列表中指定位置的元素。 将所有后续元素向左移动（从其索引中减去一个）。 返回从列表中删除的元素
 func (list *LinkedList) RemoveIndex(index int) (error, interface{}) {
 	err := list.checkElementIndex(index)
 	if err != nil {
@@ -207,7 +207,7 @@ func (list *LinkedList) RemoveIndex(index int) (error, interface{}) {
 
 }
 
-// 删除某个值
+// 如果存在指定元素，则从该列表中删除该元素的第一次出现。 如果此列表不包含该元素，则它保持不变
 func (list *LinkedList) Remove(item interface{}) bool {
 	if item == nil {
 		for x := list.first; x != nil; x = x.next {
@@ -227,7 +227,7 @@ func (list *LinkedList) Remove(item interface{}) bool {
 	return false
 }
 
-// 删除第一个节点
+// 检索并删除此列表的头（第一个元素）
 func (list *LinkedList) RemoveFirst() (error, interface{}) {
 	f := list.first
 	if f == nil {
@@ -236,7 +236,7 @@ func (list *LinkedList) RemoveFirst() (error, interface{}) {
 	return nil, list.unlinkFirst(f)
 }
 
-// 删除最后一个节点
+// 从此列表中删除并返回最后一个元素
 func (list *LinkedList) RemoveLast() (error, interface{}) {
 	l := list.last
 	if l == nil {
@@ -322,7 +322,7 @@ func (list *LinkedList) node(index int) *Node {
 	}
 }
 
-// 获取第一个节点
+// 返回此列表中的第一个元素
 func (list *LinkedList) GetFirst() (error, interface{}) {
 	f := list.first
 	if f == nil {
@@ -331,7 +331,7 @@ func (list *LinkedList) GetFirst() (error, interface{}) {
 	return nil, f.item
 }
 
-// 获取最后一个节点
+// 返回此列表中的最后一个元素
 func (list *LinkedList) GetLast() (error, interface{}) {
 	l := list.last
 	if l == nil {
@@ -340,7 +340,7 @@ func (list *LinkedList) GetLast() (error, interface{}) {
 	return nil, l.item
 }
 
-// 清空列表
+// 清空列表元素
 func (list *LinkedList) Clear() {
 	for x := list.first; x != nil; {
 		next := x.next
@@ -355,7 +355,7 @@ func (list *LinkedList) Clear() {
 	list.modCount++
 }
 
-// 根据索引获取值
+// 返回此列表中指定位置的元素
 func (list *LinkedList) Get(index int) (error, interface{}) {
 	err := list.checkElementIndex(index)
 	if err != nil {
@@ -364,7 +364,7 @@ func (list *LinkedList) Get(index int) (error, interface{}) {
 	return nil, list.node(index).item
 }
 
-// 替换指定索引的值
+// 用指定的元素替换此列表中指定位置的元素
 func (list *LinkedList) Set(index int, item interface{}) (error, interface{}) {
 	err := list.checkElementIndex(index)
 	if err != nil {
@@ -427,7 +427,7 @@ func (list *LinkedList) Push(item interface{}) {
 	list.AddFirst(item)
 }
 
-// 将元素插入此列表的开头
+// 从此列表表示的堆栈中弹出一个元素。 换句话说，删除并返回此列表的第一个元素
 func (list *LinkedList) Pop() (error, interface{}) {
 	err, item := list.RemoveFirst()
 	if err != nil {
