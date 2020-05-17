@@ -19,5 +19,5 @@ func New(firstName string, lastName string, totalLeave int, leavesTaken int) emp
 }
 
 func (e employee) LeavesRemaining() {
-	fmt.Printf("%s %s has %d leaves remaining", e.firstName, e.lastName, (e.totalLeaves - e.leavesTaken))
+	fmt.Printf("%s %s has %d leaves remaining \n", e.firstName, e.lastName, (e.totalLeaves - e.leavesTaken))
 }
