@@ -2,7 +2,7 @@ package employee
 
 import (
 	"fmt"
-	collection "github.com/wenlincheng/go-common/collection"
+	"github.com/wenlincheng/go-common/collection"
 	"testing"
 )
 
